@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "*"
+numpy = "*"
+matplotlib = "*"
+lxml = "*"
+ibm-watson = "*"
+transformers = "*"
+pillow = "*"
+torchvision = "*"
+torchaudio = "*"
+ipywidgets = "*"
+gradio = "*"
+langchain = "*"
+notebook = "*"
+torch = "*"
+flask = "*"
+flask-cors = "*"
+openai = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
+python_full_version = "3.12.8"
