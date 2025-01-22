@@ -31,30 +31,84 @@ async def main():
     df.columns = HEADERS
 
     # update screen_size_cm column rounding values to nearest 2 decimals
-    df[['screen_size_cm']] = np.round(df[['screen_size_cm']], 2)
+    # df[['screen_size_cm']] = np.round(df[['screen_size_cm']], 2)
     # print(df.head())
-    # Task 1
-    # Missing data was last converted from '?' to numpy.NaN. Pandas uses NaN and Null
-    # values interchangeably. This means, you can just identify the entries having Null
-    # values. Write a code that identifies which columns have missing data.
-    missing_data = df.isnull()
-    for column in missing_data.columns.values.tolist():
-        print(missing_data[column].value_counts())
-        print("")
+    """
+    Task 1
+    Missing data was last converted from '?' to numpy.NaN. Pandas uses NaN and Null
+    values interchangeably. This means, you can just identify the entries having Null
+    values. Write a code that identifies which columns have missing data.
+    """
+    # missing_data = df.isnull()
+    # for column in missing_data.columns.values.tolist():
+    #     print(missing_data[column].value_counts())
+    #     print("")
         
-    # Task 2.a
-    # Missing values in attributes that have continuous data are best replaced using
-    # Mean value. We note that values in "Weight_kg" attribute are continuous in nature,
-    # and some values are missing. Therefore, write a code to replace the missing values
-    # of weight with the average value of the attribute.
-    avg_weight = df['weight_kg'].astype('float').mean(axis=0)
-    print(df['weight_kg'][29:50])
-    df['weight_kg'].replace(np.nan, avg_weight, inplace=True)
-    print(df['weight_kg'][29:50])
+    """"
+    Task 2a
+    Missing values in attributes that have continuous data are best replaced using
+    Mean value. We note that values in "Weight_kg" attribute are continuous in nature,
+    and some values are missing. Therefore, write a code to replace the missing values
+    of weight with the average value of the attribute.
+    """
+    # avg_weight = df['weight_kg'].astype('float').mean(axis=0)
+    # print(df['weight_kg'][29:50])
+    # df['weight_kg'].replace(np.nan, avg_weight, inplace=True)
+    # print(df['weight_kg'][29:50])
 
-    # Task 2.b
+    """
+    Task 2b
+    Missing values in attributes that have categorical data are best replaced using the
+    most frequent value. We note that values in "screen_size_cm" attribute are
+    categorical in nature, and some values are missing. Therefore, write a code to
+    replace the missing values of Screen Size with the most frequent value of the attribute.
+    """
+    # most_common_screen_size = df['screen_size_cm'].value_counts().idxmax()
+    # df['screen_size_cm'].replace(np.nan, most_common_screen_size, inplace=True)
+    # print(df['screen_size_cm'].isnull().value_counts())
 
+    """
+    Task 3
+    Both "Weight_kg" and "Screen_Size_cm" are seen to have the data type "Object", while both
+    of them should be having a data type of "float". Write a code to fix the data type of
+    these two columns.
+    """
+    print(df['weight_kg'])
 
+    """
+    Task 4a
+    The value of Screen_size usually has a standard unit of inches. Similarly, weight of the
+    laptop is needed to be in pounds. Use the below mentioned units of conversion and write
+    a code to modify the columns of the dataframe accordingly. Update their names as well.
+
+    1 inch = 2.54 cm
+    1 kg   = 2.205 pounds
+    """
+
+    """
+    Task 4b
+    Often it is required to normalize a continuous data attribute. Write a code to normalize the
+    "CPU_frequency" attribute with respect to the maximum value available in the dataset.
+    """
+
+    """
+    Task 5a
+    Binning is a process of creating a categorical attribute which splits the values of a
+    continuous data into a specified number of groups. In this case, write a code to create
+    3 bins for the attribute "Price". These bins would be named "Low", "Medium" and "High".
+    The new attribute will be named "Price-binned".
+    """
+
+    """
+    Task 5b
+    Also, plot the bar graph of these bins.
+    """
+
+    """
+    Task 6
+    Convert the "Screen" attribute of the dataset into 2 indicator variables, "Screen-IPS_panel"
+    and "Screen-Full_HD". Then drop the "Screen" attribute from the dataset.
+    """
 
 
 if __name__ == '__main__':
