@@ -1,9 +1,10 @@
-"""Module 01 - Lab: Importing Data Sets - Laptop Pricing"""
+"""Module 02 - Lab: Data Wrangling - Laptop Pricing"""
 import asyncio
 import locale
 import os
 
 import aiohttp
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
@@ -30,9 +31,6 @@ async def main():
     df = pd.read_csv(file_name)
     df.columns = HEADERS
 
-    # update screen_size_cm column rounding values to nearest 2 decimals
-    # df[['screen_size_cm']] = np.round(df[['screen_size_cm']], 2)
-    # print(df.head())
     """
     Task 1
     Missing data was last converted from '?' to numpy.NaN. Pandas uses NaN and Null
@@ -68,12 +66,19 @@ async def main():
     # print(df['screen_size_cm'].isnull().value_counts())
 
     """
-    Task 3
+    Task 3 SEE NOTE BELOW
     Both "Weight_kg" and "Screen_Size_cm" are seen to have the data type "Object", while both
     of them should be having a data type of "float". Write a code to fix the data type of
     these two columns.
+    
+    NOTE: The features are already of type float at this point but we have used object in order
+    to demonstrate making the data type change. When using this file as the starting point
+    for later modules do not use this code unless instructed to
     """
-    print(df['weight_kg'])
+    # print(df['weight_kg'].dtype)
+    # df['weight_kg'] = df['weight_kg'].astype(object)
+    # print(df['weight_kg'].dtype)
+    # print(df.dtypes)
 
     """
     Task 4a
@@ -84,12 +89,22 @@ async def main():
     1 inch = 2.54 cm
     1 kg   = 2.205 pounds
     """
+    # print(df['screen_size_cm'].head())
+    # print(df['weight_kg'].head())
+    # df.rename(columns={"screen_size_cm": "screen_size_in", "weight_kg": "weight_lb"}, inplace=True)
+    # df['screen_size_in'] = df['screen_size_in']/2.54
+    # df['weight_lb'] = df['weight_lb']*2.205
+    # print(df['screen_size_in'].head())
+    # print(df['weight_lb'].head())
 
     """
     Task 4b
     Often it is required to normalize a continuous data attribute. Write a code to normalize the
     "CPU_frequency" attribute with respect to the maximum value available in the dataset.
     """
+    # Using simple feature scaling normalization approach
+    # Divide each value by the max value for the future resulting in values between 0 and 1
+    # df['cpu_frequency'] = df['cpu_frequency']/df['cpu_frequency'].max()
 
     """
     Task 5a
@@ -98,17 +113,32 @@ async def main():
     3 bins for the attribute "Price". These bins would be named "Low", "Medium" and "High".
     The new attribute will be named "Price-binned".
     """
+    # bins = np.linspace(min(df['price']), max(df['price']), 4)
+    # bin_names = ['low', 'medium', 'high']
+    # df['price-binned'] = pd.cut(df['price'], bins, labels=bin_names, include_lowest=True)
+    # print(df['price-binned'].tail())
 
     """
     Task 5b
     Also, plot the bar graph of these bins.
     """
+    # plt.bar(bin_names, df["price-binned"].value_counts())
+    # plt.xlabel("price")
+    # plt.ylabel("count")
+    # plt.title("price bins")
+    # plt.show()
 
     """
     Task 6
     Convert the "Screen" attribute of the dataset into 2 indicator variables, "Screen-IPS_panel"
     and "Screen-Full_HD". Then drop the "Screen" attribute from the dataset.
     """
+    # print(df['screen'].value_counts())
+    # dummys = pd.get_dummies(df['screen'])
+    # print(dummys.keys())
+    # dummys.rename(columns={"Full HD": "full-hd", "IPS Panel": "ips-panel"}, inplace=True)
+    # df = pd.concat([df, dummys], axis=1)
+    # print(df.info())
 
 
 if __name__ == '__main__':
